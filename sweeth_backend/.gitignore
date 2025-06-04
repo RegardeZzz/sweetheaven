@@ -1,0 +1,31 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+*.sqlite3
+.env
+.env.*
+
+# Virtual environment
+env/
+venv/
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# React
+sweet-heaven/node_modules/
+sweet-heaven/.next/
+sweet-heaven/build/
+sweet-heaven/dist/
+sweet-heaven/.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+htmlcov/
+coverage.xml
