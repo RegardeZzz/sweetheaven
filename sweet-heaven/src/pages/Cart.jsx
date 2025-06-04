@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import cartApi from "../api/cartApi";
+import ordersApi from "../api/ordersApi";
+import PaymentModal from "../components/PaymentModal";
 
-const MEDIA_URL = "http://localhost:8000"; 
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [token] = useState(localStorage.getItem("access"));
+  const [isPaymentOpen, setPaymentOpen] = useState(false);
 
   useEffect(() => {
     if (token) {
@@ -39,6 +41,15 @@ const Cart = () => {
   const deliveryFee = subtotal >= 2000 ? 0 : 200;
   const total = subtotal + deliveryFee;
 
+  const placeOrder = () => {
+    ordersApi.createOrder(token)
+      .then(() => {
+        alert("Заказ оформлен!");
+        setCartItems([]); 
+      })
+      .catch(() => alert("Ошибка оформления заказа"));
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <main className="container mx-auto px-4 py-8">
@@ -64,7 +75,7 @@ const Cart = () => {
                   >
                     <div className="flex gap-4 w-full">
                       <img
-                        src={`${MEDIA_URL}${item.product.image}`}
+                        src={item.product.image}
                         alt={item.product.name}
                         className="h-24 w-24 rounded-md object-cover shrink-0"
                       />
@@ -97,7 +108,7 @@ const Cart = () => {
                     </div>
 
                     <div className="flex justify-between items-center w-full sm:w-auto sm:ml-auto mt-4 sm:mt-0">
-                      <div className="font-semibold text-right">{item.product.price * item.quantity} ₽</div>
+                      <div className="font-semibold text-right whitespace-nowrap">{item.product.price * item.quantity} ₽</div>
                       <button
                         onClick={() => removeItem(item.id)}
                         className="text-red-500 text-lg ml-4"
@@ -128,8 +139,10 @@ const Cart = () => {
                     <span>{total} ₽</span>
                   </div>
                 </div>
-                <button className="w-full bg-primary text-white py-2 rounded mt-6">
-                  Оформить заказ
+                <button 
+                  onClick={() => setPaymentOpen(true)}
+                  className="w-full bg-primary text-white py-2 rounded mt-6 font-display">
+                    Оформить заказ
                 </button>
                 <Link to="/catalog" className="block text-center mt-3 underline">
                   Продолжить покупки
@@ -139,6 +152,13 @@ const Cart = () => {
           </div>
         )}
       </main>
+
+       <PaymentModal
+        isOpen={isPaymentOpen}
+        onClose={() => setPaymentOpen(false)}
+        onSubmit={placeOrder}
+      /> 
+
     </div>
   );
 };

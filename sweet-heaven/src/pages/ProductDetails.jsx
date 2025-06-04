@@ -81,7 +81,7 @@ const ProductDetails = () => {
         return;
       }
       await cartApi.addItem(token, product.id, quantity);
-      alert("Товар добавлен в корзину 🛒");
+      alert("Товар добавлен в корзину ");
     } catch (err) {
       console.error("Ошибка добавления в корзину", err);
       alert("Ошибка при добавлении в корзину");
@@ -131,7 +131,7 @@ const ProductDetails = () => {
 
             {/* Кнопка добавления в корзину */}
             <div className="flex flex-wrap gap-4 mb-6">
-              <button className="h-11 rounded-md px-8 bg-primary text-primary-foreground hover:bg-primary/90 w-full"
+              <button className="h-11 rounded-md px-8 bg-primary text-primary-foreground hover:bg-primary/90 w-full font-display"
                 onClick={handleAddToCart}
               >
                 Добавить в корзину

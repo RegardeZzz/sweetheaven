@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authApi from '../api/authApi';
+import ordersApi from "../api/ordersApi";
+
+
 
 const Profile = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem('access');
   const [activeTab, setActiveTab] = useState('personal');
   const [user, setUser] = useState({
     first_name: '',
@@ -12,13 +16,23 @@ const Profile = () => {
     phone: '',
   });
 
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    if (activeTab === "orders" && token) {
+      ordersApi.getOrders(token)
+        .then((res) => setOrders(res.data))
+        .catch(console.error);
+    }
+  }, [activeTab, token]);
+
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   });
 
-  const token = localStorage.getItem('access');
+
 
   useEffect(() => {
     if (!token) {
@@ -46,7 +60,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       await authApi.updateProfile(token, user);
-      alert('Профиль успешно обновлён ✅');
+      alert('Профиль успешно обновлён ');
     } catch (error) {
       console.error('Ошибка обновления:', error);
       alert('Ошибка при сохранении данных');
@@ -200,9 +214,33 @@ const Profile = () => {
             )}
 
             {activeTab === "orders" && (
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-xl font-display mb-4">Статус заказов</h2>
-                <p>Здесь будет история заказов </p>
+              <div className="space-y-4">
+                {orders.length === 0 ? (
+                  <p>Заказы отсутствуют</p>
+                ) : (
+                  orders.map((order) => (
+                    <div key={order.id} className="border p-4 rounded">
+                      <div className="flex justify-between mb-2">
+                        <div className="text-sm text-gray-600">
+                          Дата: {new Date(order.created_at).toLocaleString()}
+                        </div>
+                        <div className="text-sm font-semibold">{order.status === "processing" ? "Оформление" : "Завершен"}</div>
+                      </div>
+                      <div className="space-y-2">
+                        {order.items.map((item, idx) => (
+                          <div key={idx} className="flex gap-3 items-center">
+                            <img src={item.product_image} alt="" className="w-12 h-12 rounded object-cover" />
+                            <div>
+                              <div className="font-medium">{item.product_name}</div>
+                              <div className="text-sm text-gray-500">x{item.quantity} — {item.price} ₽</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-2 font-semibold">Итого: {order.total_price} ₽</div>
+                    </div>
+                  ))
+                )}
               </div>
             )}
           </div>

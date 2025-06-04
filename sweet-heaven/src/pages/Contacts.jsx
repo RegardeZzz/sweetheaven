@@ -166,7 +166,7 @@ const Contacts = () => {
 
               {/* Кнопка отправки */}
               <button
-                className='bg-primary text-primary-foreground hover:bg-primary/90 w-full h-10 px-4 py-2 rounded-md'
+                className='bg-primary text-primary-foreground hover:bg-primary/90 w-full h-10 px-4 py-2 rounded-md font-display'
                 type='submit'
               >
                 Отправить сообщение

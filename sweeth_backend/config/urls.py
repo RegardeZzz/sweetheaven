@@ -53,6 +53,9 @@ urlpatterns = [
     # Обратная связь
     path('api/contact/', include('contacts.urls')),
     path('api/reviews/', include('reviews.urls')),
+
+    path('api/orders/', include('orders.urls')),
+
 ]
 
 # Статика
