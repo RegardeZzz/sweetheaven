@@ -9,14 +9,22 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [token] = useState(localStorage.getItem("access"));
   const [isPaymentOpen, setPaymentOpen] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (token) {
-      cartApi.getCart(token)
-        .then((res) => setCartItems(res.data.items))
-        .catch(console.error);
-    }
-  }, [token]);
+  if (token) {
+    cartApi.getCart(token)
+      .then((res) => {
+        setCartItems(res.data.items);
+        setError(null); // сбрасываем ошибку при успехе
+      })
+      .catch((err) => {
+        const message = err.response?.data?.error || "Ошибка при загрузке корзины";
+        setError(message);
+        console.error("Ошибка при получении корзины:", message);
+      });
+  }
+}, [token]);
 
   const incrementQuantity = async (id) => {
     const item = cartItems.find(i => i.id === id);
@@ -54,6 +62,13 @@ const Cart = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">Корзина</h1>
+
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {error}
+          </div>
+        )}
+
 
         {cartItems.length === 0 ? (
           <div className="text-center py-16">
