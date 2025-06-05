@@ -1,6 +1,7 @@
 # Импорты
 from django.contrib import admin
 from django.urls import path, include
+from django.http import JsonResponse
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.routers import DefaultRouter
@@ -55,6 +56,8 @@ urlpatterns = [
     path('api/reviews/', include('reviews.urls')),
 
     path('api/orders/', include('orders.urls')),
+
+    path('', lambda request: JsonResponse({"status": "ok"})),
 
 ]
 
