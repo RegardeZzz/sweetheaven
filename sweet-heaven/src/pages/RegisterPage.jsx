@@ -18,7 +18,7 @@ const RegisterPage = () => {
         };
 
         try{
-             const res = await axios.post('http://localhost:8000/api/register/',data);
+             const res = await axios.post('https://sweeth-backend.onrender.com/api/register/',data);
             localStorage.setItem('user', JSON.stringify({ username: res.data.username }));
             navigate('/login');
         }catch(err) {

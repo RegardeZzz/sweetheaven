@@ -13,7 +13,7 @@ const Contacts = () => {
     e.preventDefault();
     try {
       // Отправляем данные на Django API
-      await axios.post('http://localhost:8000/api/contact/send/', {
+      await axios.post('https://sweeth-backend.onrender.com/api/contact/send/', {
         name,
         email,
         subject,

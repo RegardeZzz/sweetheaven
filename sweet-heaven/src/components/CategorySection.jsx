@@ -45,14 +45,14 @@ const CategorySection = () => {
 
   useEffect(() => {
     //  Запрашиваем список категорий с API
-    axios.get('http://localhost:8000/api/categories/')
+    axios.get('https://sweeth-backend.onrender.com/api/categories/')
       .then(res => {
         setCategories(res.data); // сохраняем список категорий
       })
       .catch(err => console.error('Ошибка загрузки категорий:', err));
 
     // Получаем все продукты, чтобы посчитать количество по категориям
-    axios.get('http://localhost:8000/api/products/')
+    axios.get('https://sweeth-backend.onrender.com/api/products/')
       .then(res => {
         const countByCategory = {};
         res.data.forEach(product => {
