@@ -20,7 +20,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название продукта')
     slug = models.SlugField(max_length=255, unique=True, verbose_name="URL-идентификатор")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
-    image = models.FileField(upload_to='products/', verbose_name="Изображение")
+    image = models.URLField(verbose_name="Изображение")
     short_description = models.CharField(max_length=255, verbose_name='Краткое описание', blank=True)
     weight_grams = models.PositiveIntegerField(null=True, blank=True, verbose_name='Вес (г)')
     shelf_life_days = models.PositiveIntegerField(null=True, blank=True, verbose_name='Срок хранения (дней)')

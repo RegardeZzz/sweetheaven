@@ -141,6 +141,10 @@ CORS_ALLOWED_ORIGINS = [
     "https://sweetheaven.vercel.app",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://sweetheaven.vercel.app",
+]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
