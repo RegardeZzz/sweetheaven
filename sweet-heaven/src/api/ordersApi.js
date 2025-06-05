@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000/api/orders/";
+const BASE_URL = "https://sweeth-backend.onrender.com/api/orders/";
 
 const ordersApi = {
   createOrder: (token) =>
