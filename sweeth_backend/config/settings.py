@@ -139,10 +139,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     "https://sweetheaven.vercel.app",
+    "https://sweet-heaven.ru",
+    "https://www.sweet-heaven.ru",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://sweetheaven.vercel.app",
+    "https://sweet-heaven.ru",
+    "https://www.sweet-heaven.ru",
 ]
 
 MEDIA_URL = '/media/'
