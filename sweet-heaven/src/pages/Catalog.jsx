@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from '../components/ProductCard'            // Компонент карточки товара
 import productApi from '../api/productApi'                     // API-запросы к бэкенду
-import ProductSkeleton from '../components/ProductSkeleton'    // Компонент "скелета" для загрузки
 import { useSearchParams } from 'react-router-dom';            // Получение query-параметров из URL
+import Loadingv2 from '../components/Loadingv2';
 
 const Catalog = () => {
     const [searchParams] = useSearchParams();  // Получаем параметры из URL (например, ?category=cakes)
@@ -60,11 +60,7 @@ const Catalog = () => {
     if (products.loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 py-8 w-full max-w-7xl">
-                    {Array.from({ length: 8 }).map((_, index) => (
-                        <ProductSkeleton key={index} />
-                    ))}
-                </div>
+                <Loadingv2></Loadingv2>
             </div>
         );
     }
@@ -127,7 +123,7 @@ const Catalog = () => {
                     {/* Только Торты */}
                     {activeTab === 'cakes' && (
                         <div>
-                            <h2 className="text-2xl font-semibold mb-4">Торты</h2>
+                            <h2 className="text-2xl font-display mb-4">Торты</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {products.cakes.map(product => (
                                     <ProductCard key={product.id} product={product} />
@@ -139,7 +135,7 @@ const Catalog = () => {
                     {/* Только Эклеры */}
                     {activeTab === 'eclairs' && (
                         <div>
-                            <h2 className="text-2xl font-semibold mb-4">Эклеры</h2>
+                            <h2 className="text-2xl font-display mb-4">Эклеры</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {products.eclairs.map(product => (
                                     <ProductCard key={product.id} product={product} />
@@ -151,7 +147,7 @@ const Catalog = () => {
                     {/* Только Макаруны */}
                     {activeTab === 'macarons' && (
                         <div>
-                            <h2 className="text-2xl font-semibold mb-4">Макаруны</h2>
+                            <h2 className="text-2xl font-display mb-4">Макаруны</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {products.macarons.map(product => (
                                     <ProductCard key={product.id} product={product} />

@@ -29,8 +29,8 @@ const MainPage = () => {
                 className="rounded-lg shadow-lg relative z-10 mx-auto"
               />
               {/* Нижние декоративные круги */}
-              <div className="aspect-square rounded-full bg-muted absolute -left-16 -bottom-16 w-48 h-48 animate-move-reverse"></div>
-              <div className="aspect-square rounded-full bg-muted absolute -right-10 -bottom-16 w-48 h-48 animate-move-reverse"></div>
+              <div className="hidden sm:block aspect-square rounded-full bg-muted absolute -left-16 -bottom-16 w-48 h-48 animate-move-reverse"></div>
+              <div className="hidden sm:block aspect-square rounded-full bg-muted absolute -right-10 -bottom-16 w-48 h-48 animate-move-reverse"></div>
             </div>
           </div>
         </div>

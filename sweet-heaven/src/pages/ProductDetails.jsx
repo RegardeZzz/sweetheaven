@@ -5,6 +5,7 @@ import productApi from '../api/productApi';
 import ProductCard from '../components/ProductCard';
 import cartApi from '../api/cartApi';
 import reviewApi from '../api/reviewApi'; // Импорт API для отзывов
+import LoadingProduct from '../components/LoadingProduct';
 
 const ProductDetails = () => {
   // Получаем id продукта из URL
@@ -70,7 +71,14 @@ const ProductDetails = () => {
   const decrementQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
 
   // Если товар не найден или ошибка
-  if (loading) return <div className="text-center p-10">Загрузка...</div>;
+  if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <LoadingProduct></LoadingProduct>
+            </div>
+        );
+    }
+
   if (error || !product) return <div className="text-center text-red-500 p-10">{error}</div>;
 
   // Добавление в корзину

@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authApi from '../api/authApi';
 import ordersApi from "../api/ordersApi";
+import Loading from '../components/Loading';
 
 
 
 const Profile = () => {
   const navigate = useNavigate();
+  const [loadingOrders, setLoadingOrders] = useState(false);
   const token = localStorage.getItem('access');
   const [activeTab, setActiveTab] = useState('personal');
   const [user, setUser] = useState({
@@ -20,9 +22,11 @@ const Profile = () => {
 
   useEffect(() => {
     if (activeTab === "orders" && token) {
+      setLoadingOrders(true);
       ordersApi.getOrders(token)
         .then((res) => setOrders(res.data))
-        .catch(console.error);
+        .catch(console.error)
+        .finally(() => setLoadingOrders(false));
     }
   }, [activeTab, token]);
 
@@ -215,7 +219,9 @@ const Profile = () => {
 
             {activeTab === "orders" && (
               <div className="space-y-4">
-                {orders.length === 0 ? (
+                {loadingOrders ? (
+                  <Loading />
+                ) : orders.length === 0 ? (
                   <p>Заказы отсутствуют</p>
                 ) : (
                   orders.map((order) => (
@@ -224,15 +230,18 @@ const Profile = () => {
                         <div className="text-sm text-gray-600">
                           Дата: {new Date(order.created_at).toLocaleString()}
                         </div>
-                        <div className="text-sm font-semibold">{order.status === "processing" ? "Оформление" : "Завершен"}</div>
+                        <div className="text-sm font-semibold">
+                          {order.status === "processing" ? "Оформление" : "Завершен"}
+                        </div>
                       </div>
                       <div className="space-y-2">
                         {order.items.map((item, idx) => (
                           <div key={idx} className="flex gap-3 items-center">
-                            <img src={item.product_image} alt="" className="w-12 h-12 rounded object-cover" />
                             <div>
                               <div className="font-medium">{item.product_name}</div>
-                              <div className="text-sm text-gray-500">x{item.quantity} — {item.price} ₽</div>
+                              <div className="text-sm text-gray-500">
+                                x{item.quantity} — {item.price} ₽
+                              </div>
                             </div>
                           </div>
                         ))}

@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import cartApi from "../api/cartApi";
 import ordersApi from "../api/ordersApi";
 import PaymentModal from "../components/PaymentModal";
-
+import LoadingCart from "../components/LoadingCart";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [token] = useState(localStorage.getItem("access"));
   const [isPaymentOpen, setPaymentOpen] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
   if (token) {
@@ -17,11 +18,13 @@ const Cart = () => {
       .then((res) => {
         setCartItems(res.data.items);
         setError(null); // сбрасываем ошибку при успехе
+        setLoading(false)
       })
       .catch((err) => {
         const message = err.response?.data?.error || "Ошибка при загрузке корзины";
         setError(message);
         console.error("Ошибка при получении корзины:", message);
+        setLoading(false)
       });
   }
 }, [token]);
@@ -57,6 +60,15 @@ const Cart = () => {
       })
       .catch(() => alert("Ошибка оформления заказа"));
   };
+
+  // Показываем загрузку
+  if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <LoadingCart></LoadingCart>
+            </div>
+        );
+    }
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">

@@ -1,84 +1,64 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import DropMenu from './DropMenu'
+import DropMenu from './DropMenu';
 
 const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [showMenu, setShowMenu] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const openMenu = () => {
-        setShowMenu(true);
-        setTimeout(() => setIsMenuOpen(true), 10);
-    };
+  const toggleMenu = () => setIsMenuOpen(prev => !prev);
 
-    const closeMenu = () => {
-        setIsMenuOpen(false);
-        setTimeout(() => setShowMenu(false), 300);
-    };
+  return (
+    <header className="bg-white shadow-sm z-50 relative">
+      <div className="container mx-auto px-6 md:px-4 py-3 flex items-center justify-between">
+        {/* Логотип */}
+        <Link to="/" className="text-primary font-display text-2xl tracking-wide">Sweet Heaven</Link>
 
-    return (
-        <header>
-            <section className="bg-white shadow-sm top-0 z-50">
-                <div className="container mx-auto px-4 py-3 relative">
-                    <div className="flex items-center justify-between">
+        {/* Навигация (десктоп) */}
+        <nav className="hidden md:flex space-x-8 font-medium text-gray-700">
+          <Link to="/" className="hover:text-primary transition-colors">Главная</Link>
+          <Link to="/catalog" className="hover:text-primary transition-colors">Каталог</Link>
+          <Link to="/about" className="hover:text-primary transition-colors">О нас</Link>
+          <Link to="/contacts" className="hover:text-primary transition-colors">Контакты</Link>
+        </nav>
 
-                        {/* Лого */}
-                        <div className="flex items-center">
-                            <Link to="/" className="text-primary font-display text-2xl">Sweet Heaven</Link>
-                        </div>
+        {/* Иконки */}
+        <div className="flex items-center space-x-4">
+          <DropMenu />
+          <Link to="/cart">
+            <img src="./image/shop.svg" alt="Корзина" className="w-6 h-6 hover:opacity-75 transition-opacity" />
+          </Link>
 
-                        {/* Навигация */}
-                        <div className="hidden md:flex space-x-8">
-                            <Link to="/" className="font-medium hover:text-primary transition-colors">Главная</Link>
-                            <Link to="/catalog" className="font-medium hover:text-primary transition-colors">Каталог</Link>
-                            <Link to="/about" className="font-medium hover:text-primary transition-colors">О нас</Link>
-                            <Link to="/contacts" className="font-medium hover:text-primary transition-colors">Контакты</Link>
-                        </div>
+          {/* Бургер-меню */}
+          <button
+            onClick={toggleMenu}
+            className="md:hidden flex flex-col justify-between w-6 h-5 relative z-50"
+            aria-label="Мобильное меню"
+          >
+            <span className={`block h-0.5 bg-primary rounded transition duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block h-0.5 bg-primary rounded transition duration-300 ${isMenuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-0.5 bg-primary rounded transition duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </button>
+        </div>
+      </div>
 
-                        {/* Иконки */}
-                        <div className="flex items-center space-x-4">
-                            <DropMenu />
-                            <Link to="/cart" className="hover:opacity-80 transition-opacity">
-                                <button className="p-1">
-                                    <img src="./image/shop.svg" alt="Корзина" />
-                                </button>
-                            </Link>
-                            <button className="md:hidden text-primary font-semibold" onClick={openMenu}>Меню</button>
-                        </div>
-                    </div>
-                </div>
+      {/* Мобильное меню */}
+      <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'}`}>
+        {/* Затемнение */}
+        <div
+          className="absolute inset-0 bg-black bg-opacity-30 backdrop-blur-sm"
+          onClick={toggleMenu}
+        />
 
-                {/* Мобильное меню */}
-                {showMenu && (
-                    <div className="fixed inset-0 z-50">
-                        {/* затемнение */}
-                        <div
-                            className={`absolute inset-0 bg-black transition-opacity duration-300 ${isMenuOpen ? 'opacity-50' : 'opacity-0'}`}
-                            onClick={closeMenu}
-                        />
-
-                        {/* панель меню */}
-                        <div
-                            className={`absolute top-0 right-0 mt-4 mr-4 w-64 bg-white shadow-xl rounded-xl p-6 transition-transform duration-300 ease-in-out transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
-                        >
-                            <button
-                                className="absolute top-2 right-3 text-primary text-2xl"
-                                onClick={closeMenu}
-                            >
-                                ✕
-                            </button>
-                            <nav className="mt-8 flex flex-col items-center text-center space-y-4 text-lg font-semibold text-gray-800 w-full">
-                                <Link to="/" onClick={closeMenu} className="w-full py-2 border-b border-gray-200 hover:text-primary transition-colors duration-200">Главная</Link>
-                                <Link to="/catalog" onClick={closeMenu} className="w-full py-2 border-b border-gray-200 hover:text-primary transition-colors duration-200">Каталог</Link>
-                                <Link to="/about" onClick={closeMenu} className="w-full py-2 border-b border-gray-200 hover:text-primary transition-colors duration-200">О нас</Link>
-                                <Link to="/contacts" onClick={closeMenu} className="w-full py-2 border-b border-gray-200 hover:text-primary transition-colors duration-200">Контакты</Link>
-                            </nav>
-                        </div>
-                    </div>
-                )}
-            </section>
-        </header>
-    );
+        {/* Ссылки */}
+        <div className="absolute right-0 top-0 w-full h-full bg-white p-8 flex flex-col items-center justify-center space-y-8 text-xl font-semibold text-gray-800 shadow-xl">
+          <Link to="/" onClick={toggleMenu} className="hover:text-primary transition-all duration-200">Главная</Link>
+          <Link to="/catalog" onClick={toggleMenu} className="hover:text-primary transition-all duration-200">Каталог</Link>
+          <Link to="/about" onClick={toggleMenu} className="hover:text-primary transition-all duration-200">О нас</Link>
+          <Link to="/contacts" onClick={toggleMenu} className="hover:text-primary transition-all duration-200">Контакты</Link>
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default Header;

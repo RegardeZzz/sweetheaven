@@ -90,12 +90,17 @@ module.exports = {
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 }
+        },
+        "borderBlink": {
+          "0%, 100%": { borderColor: "#ec4899" },
+          "50%": { borderColor: "#f472b6" },
         }
       },
       
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out"
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "border-blink": "borderBlink 0.4s ease-in-out infinite"
       }
     }
   },
