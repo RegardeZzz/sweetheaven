@@ -21,7 +21,7 @@ const MainPage = () => {
             {/* Изображение и декоративные круги */}
             <div className="md:w-1/2 relative">
             {/* Верхний круг(анимация) */}
-              <div className="hidden sm:block aspect-square rounded-full bg-accent absolute -right-10 -top-20 w-64 h-64 animate-move"></div>
+              <div className="hidden lg:block aspect-square rounded-full bg-accent absolute -right-10 -top-20 w-64 h-64 animate-move"></div>
               {/* Основное изображение торта */}
               <img
                 src="./image/cake.svg"
@@ -29,8 +29,8 @@ const MainPage = () => {
                 className="rounded-lg shadow-lg relative z-10 mx-auto"
               />
               {/* Нижние декоративные круги */}
-              <div className="hidden sm:block aspect-square rounded-full bg-muted absolute -left-16 -bottom-16 w-48 h-48 animate-move-reverse"></div>
-              <div className="hidden sm:block aspect-square rounded-full bg-muted absolute -right-10 -bottom-16 w-48 h-48 animate-move-reverse"></div>
+              <div className="hidden lg:block aspect-square rounded-full bg-muted absolute -left-16 -bottom-16 w-48 h-48 animate-move-reverse"></div>
+              <div className="hidden lg:block aspect-square rounded-full bg-muted absolute -right-10 -bottom-16 w-48 h-48 animate-move-reverse"></div>
             </div>
           </div>
         </div>

@@ -101,7 +101,7 @@ const ProductDetails = () => {
       <div className="flex-grow container mx-auto px-4 py-8">
         {/* Блок с основным товаром */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
-          <div className="rounded-lg overflow-hidden mb-6 w-full h-[400px]">
+          <div className="rounded-lg overflow-hidden mb-6 w-full h-[280px] md:h-[400px]">
             <img
               src={product.image}
               alt={product.name}
@@ -187,8 +187,8 @@ const ProductDetails = () => {
               <p className="whitespace-pre-line">{product.description}</p>
               <ul className='mt-4 space-y-1 text-sm'>
                 {product.weight_grams && <li><strong>Вес:</strong> {product.weight_grams} г</li>}
-                {product.shelf_life_days && <li><strong>Срок хранения:</strong> {product.shelf_life_days} дней</li>}
-                {product.semi_finished_hours && <li><strong>Полуфабрикаты:</strong> {product.semi_finished_hours} ч</li>}
+                {product.shelf_life_days && <li><strong>Срок хранения:</strong> {product.shelf_life_days} ч</li>}
+                {product.semi_finished_hours && <li><strong>Срок хранения:</strong> {product.semi_finished_hours} ч</li>}
               </ul>
             </div>
           )}
