@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Loading from './Loading'; // Компонент с анимацией загрузки
 
 // Функция для склонения слова "вид" в зависимости от количества
 const getWordForm = (count) => {
-  if (count === 1) return 'вид'; // 1 вид
-  if (count > 1 && count < 5) return 'вида'; // 2, 3, 4 вида
-  return 'видов';  // 5+ видов
+  if (count === 1) return 'вид';
+  if (count > 1 && count < 5) return 'вида';
+  return 'видов';
 };
 
 // Карточка категории
 const CategoryCard = ({ name, image, count, slug }) => {
   const navigate = useNavigate();
 
-  //  При клике — переход на каталог с выбранной категорией
+  // При клике — переход на каталог с выбранной категорией
   const handleClick = () => {
     navigate(`/catalog?category=${slug}`);
   };
 
   return (
     <div onClick={handleClick} className="relative overflow-hidden rounded-lg group cursor-pointer">
-      {/* изображения с анимацией при наведении */}
+      {/* Изображение с эффектом увеличения при наведении */}
       <div className="aspect-square md:aspect-[4/3]">
         <img
           src={image}
@@ -29,7 +30,7 @@ const CategoryCard = ({ name, image, count, slug }) => {
         />
       </div>
 
-      {/* Затемнение и текст снизу изображения */}
+      {/* Градиент и текст на изображении */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 flex flex-col justify-end p-4">
         <h3 className="text-white font-bold text-xl">{name}</h3>
         <p className="text-white/70 text-sm">{count} {getWordForm(count)}</p>
@@ -38,28 +39,28 @@ const CategoryCard = ({ name, image, count, slug }) => {
   );
 };
 
-// Основной компонент секции
+// Основной компонент секции категорий
 const CategorySection = () => {
-  const [categories, setCategories] = useState([]); // Список категорий с бэкенда
-  const [counts, setCounts] = useState({}); // Кол-во товаров по категориям
+  const [categories, setCategories] = useState([]); // Список категорий
+  const [counts, setCounts] = useState({}); // Количество товаров по категориям
 
   useEffect(() => {
-    //  Запрашиваем список категорий с API
+    // Получаем список категорий с API
     axios.get('https://sweeth-backend.onrender.com/api/categories/')
       .then(res => {
-        setCategories(res.data); // сохраняем список категорий
+        setCategories(res.data); // Сохраняем категории в state
       })
       .catch(err => console.error('Ошибка загрузки категорий:', err));
 
-    // Получаем все продукты, чтобы посчитать количество по категориям
+    // Получаем список товаров для подсчета количества в каждой категории
     axios.get('https://sweeth-backend.onrender.com/api/products/')
       .then(res => {
         const countByCategory = {};
         res.data.forEach(product => {
-          const slug = product.category_slug; // получаем slug категории из продукта
-          countByCategory[slug] = (countByCategory[slug] || 0) + 1; // увеличиваем счётчик
+          const slug = product.category_slug;
+          countByCategory[slug] = (countByCategory[slug] || 0) + 1;
         });
-        setCounts(countByCategory); // сохраняем результат в state
+        setCounts(countByCategory); // Сохраняем данные в state
       })
       .catch(err => console.error('Ошибка загрузки товаров:', err));
   }, []);
@@ -67,25 +68,29 @@ const CategorySection = () => {
   return (
     <section className="py-12 bg-muted/30">
       <div className="container mx-auto px-4">
-
         {/* Заголовок секции */}
         <div className="text-center mb-10">
           <h2 className="text-3xl font-display">Наши категории</h2>
           <p className="text-muted-foreground mt-2 font-body">Выберите то, что вам по вкусу</p>
         </div>
 
-        {/* Сетка карточек категорий */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {categories.map((category) => (
-            <CategoryCard
-              key={category.id}
-              name={category.name} // Название категории
-              slug={category.slug} // Slug категории (для перехода)
-              image={`/image/${category.slug}.svg`} // путь до локальной картинки
-              count={counts[category.slug] || 0} // Кол-во товаров в категории
-            />
-          ))}
-        </div>
+        {/* Анимация загрузки при отсутствии данных */}
+        {categories.length === 0 ? (
+          <Loading />
+        ) : (
+          // Сетка карточек категорий
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {categories.map((category) => (
+              <CategoryCard
+                key={category.id}
+                name={category.name} // Название категории
+                slug={category.slug} // Slug категории (для маршрута)
+                image={`/image/${category.slug}.svg`} // Путь к картинке категории
+                count={counts[category.slug] || 0} // Количество товаров
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
