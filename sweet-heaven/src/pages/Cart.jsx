@@ -157,7 +157,7 @@ const Cart = () => {
                     <span>{subtotal} ₽</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Доставка</span>
+                    <span>Сервисный сбор</span>
                     <span>{deliveryFee === 0 ? "Бесплатно" : `${deliveryFee} ₽`}</span>
                   </div>
                   <hr />

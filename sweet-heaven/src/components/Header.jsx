@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import DropMenu from './DropMenu';
+import { CartContext } from './CartContext';
 
 const Header = () => {
+  const {totalItems} = useContext(CartContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(prev => !prev);
@@ -24,8 +26,13 @@ const Header = () => {
         {/* Иконки */}
         <div className="flex items-center space-x-4">
           <DropMenu />
-          <Link to="/cart">
+          <Link to="/cart" className='relative'>
             <img src="./image/shop.svg" alt="Корзина" className="w-6 h-6 hover:opacity-75 transition-opacity" />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                {totalItems}
+              </span>
+            )}
           </Link>
 
           {/* Бургер-меню */}

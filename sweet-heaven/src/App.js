@@ -10,27 +10,30 @@ import Contacts from './pages/Contacts';
 import ProductDetails from './pages/ProductDetails';
 import Profile from './pages/Profile';
 import Cart from './pages/Cart';
+import { CartProvider } from './components/CartContext';
 
 
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />} >
-          <Route index element={<MainPage/>} />
-          <Route path='catalog' element={<Catalog/>} />
-          <Route path='/product/:id' element={<ProductDetails/>} />
-          <Route path="about" element={<About />} />
-          <Route path='register' element={<RegisterPage/>} />
-          <Route path='login' element={<LoginPage/>} />
-          <Route path='profile' element={<Profile/>} />
-          <Route path='contacts' element={<Contacts/>} />
-          <Route path='cart' element={<Cart/>} />
-          <Route path="*" element={<Error404 />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <CartProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />} >
+            <Route index element={<MainPage/>} />
+            <Route path='catalog' element={<Catalog/>} />
+            <Route path='/product/:id' element={<ProductDetails/>} />
+            <Route path="about" element={<About />} />
+            <Route path='register' element={<RegisterPage/>} />
+            <Route path='login' element={<LoginPage/>} />
+            <Route path='profile' element={<Profile/>} />
+            <Route path='contacts' element={<Contacts/>} />
+            <Route path='cart' element={<Cart/>} />
+            <Route path="*" element={<Error404 />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </CartProvider>
   );
 };
 
