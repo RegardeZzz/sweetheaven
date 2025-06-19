@@ -92,7 +92,7 @@ const Catalog = () => {
                                 {{
                                     all: 'Все товары',
                                     cakes: 'Торты',
-                                    eclairs: 'Эклеры',
+                                    eclairs: 'Пирожные',
                                     macarons: 'Макаруны'
                                 }[tab]}
                             </button>
@@ -107,7 +107,7 @@ const Catalog = () => {
                             {['cakes', 'eclairs', 'macarons'].map((cat) => (
                                 <div key={cat}>
                                     <h2 className="text-2xl font-display mb-4">
-                                        {{ cakes: 'Торты', eclairs: 'Эклеры', macarons: 'Макаруны' }[cat]}
+                                        {{ cakes: 'Торты', eclairs: 'Пирожные', macarons: 'Макаруны' }[cat]}
                                     </h2>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10">
                                         {products[cat].map((product) => (
@@ -135,7 +135,7 @@ const Catalog = () => {
                     {/* Только Эклеры */}
                     {activeTab === 'eclairs' && (
                         <div>
-                            <h2 className="text-2xl font-display mb-4">Эклеры</h2>
+                            <h2 className="text-2xl font-display mb-4">Пирожные</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {products.eclairs.map(product => (
                                     <ProductCard key={product.id} product={product} />

@@ -27,7 +27,7 @@ const Header = () => {
         <div className="flex items-center space-x-4">
           <DropMenu />
           <Link to="/cart" className='relative'>
-            <img src="./image/shop.svg" alt="Корзина" className="w-6 h-6 hover:opacity-75 transition-opacity" />
+            <img src="/image/shop.svg" alt="Корзина" className="w-6 h-6 hover:opacity-75 transition-opacity" />
             {totalItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                 {totalItems}
@@ -41,9 +41,9 @@ const Header = () => {
             className="md:hidden flex flex-col justify-between w-6 h-5 relative z-50"
             aria-label="Мобильное меню"
           >
-            <span className={`block h-0.5 bg-primary rounded transition duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block h-0.5 bg-primary rounded transition duration-300 ${isMenuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block h-0.5 bg-primary rounded transition duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            <span className={`block h-0.5 bg-black rounded transition duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block h-0.5 bg-black rounded transition duration-300 ${isMenuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-0.5 bg-black rounded transition duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
           </button>
         </div>
       </div>

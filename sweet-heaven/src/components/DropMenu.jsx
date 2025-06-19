@@ -32,7 +32,7 @@ export default function DropdownMenu() {
         onClick={() => setOpen((prev) => !prev)}
         className="p-2 rounded-full hover:text-primary focus:outline-none"
       >
-        <img src='./image/user.svg' className="h-5 w-5" alt='Пользователь' />
+        <img src='/image/user.svg' className="h-5 w-5" alt='Пользователь' />
       </button>
 
       {open && (

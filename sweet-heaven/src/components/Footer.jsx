@@ -20,7 +20,7 @@ const Footer = () => {
                         <h1 className='font-display mb-4 text-2xl'>Меню</h1>
                         <ul className='space-y-2'>
                             <li><Link to="/catalog?category=cakes" className="text-muted-foreground hover:text-primary transition-colors font-body">Торты</Link></li>
-                            <li><Link to="/catalog?category=eclairs" className="text-muted-foreground hover:text-primary transition-colors font-body">Эклеры</Link></li>
+                            <li><Link to="/catalog?category=eclairs" className="text-muted-foreground hover:text-primary transition-colors font-body">Пирожные</Link></li>
                             <li><Link to="/catalog?category=macarons" className="text-muted-foreground hover:text-primary transition-colors font-body">Макаруны</Link></li>
                         </ul>
                     </div>

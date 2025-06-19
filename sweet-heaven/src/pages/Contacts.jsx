@@ -89,13 +89,13 @@ const Contacts = () => {
             <div className='mt-8'>
               <h3 className='font-display mb-3 text-2xl'>Мы в социальных сетях</h3>
               <div className='flex space-x-4'>
-                <a href='#' className='bg-primary/10 rounded-full hover:bg-primary/20 w-10 h-10 flex items-center justify-center'>
+                <a href='https://www.youtube.com/@spasatelibesov4051' className='bg-primary/10 rounded-full hover:bg-primary/20 w-10 h-10 flex items-center justify-center'>
                   <img src='/image/youtube.svg' alt='YouTube' />
                 </a>
-                <a href='#' className='bg-primary/10 rounded-full hover:bg-primary/20 w-10 h-10 flex items-center justify-center'>
+                <a href='https://t.me/+CQ2Lu3fGQWc2OTdi' className='bg-primary/10 rounded-full hover:bg-primary/20 w-10 h-10 flex items-center justify-center'>
                   <img src='/image/telegram.svg' alt='Telegram' />
                 </a>
-                <a href='#' className='bg-primary/10 rounded-full hover:bg-primary/20 w-10 h-10 flex items-center justify-center'>
+                <a href='https://vk.com/club228691255' className='bg-primary/10 rounded-full hover:bg-primary/20 w-10 h-10 flex items-center justify-center'>
                   <img src='/image/vk.svg' alt='VK' />
                 </a>
               </div>

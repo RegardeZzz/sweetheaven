@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import productApi from '../api/productApi';
 import ProductCard from '../components/ProductCard';
-import cartApi from '../api/cartApi';
 import reviewApi from '../api/reviewApi'; // Импорт API для отзывов
 import LoadingProduct from '../components/LoadingProduct';
+import { CartContext } from '../components/CartContext';
+import { useContext } from 'react';
 
 const ProductDetails = () => {
   // Получаем id продукта из URL
@@ -19,6 +20,8 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);            // Кол-во товара
   const [relatedProducts, setRelatedProducts] = useState([]); // Похожие товары
   const [reviews, setReviews] = useState([]);             // Отзывы
+  const { addToCart } = useContext(CartContext);
+
 
   const token = localStorage.getItem("access");
 
@@ -83,18 +86,15 @@ const ProductDetails = () => {
 
   // Добавление в корзину
   const handleAddToCart = async () => {
-    try {
-      if (!token) {
-        alert("Сначала войдите в аккаунт");
-        return;
-      }
-      await cartApi.addItem(token, product.id, quantity);
-      alert("Товар добавлен в корзину ");
-    } catch (err) {
-      console.error("Ошибка добавления в корзину", err);
-      alert("Ошибка при добавлении в корзину");
-    }
-  };
+  if (!token) {
+    alert("Сначала войдите в аккаунт");
+    return;
+  }
+
+  await addToCart(product.id, quantity); 
+  alert("Товар добавлен в корзину");
+};
+
 
   return (
     <div className="min-h-screen flex flex-col">

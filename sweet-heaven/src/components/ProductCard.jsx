@@ -32,7 +32,7 @@ const ProductCard = ({ product }) => {
                 </Link>
                 <p className="text-muted-foreground text-sm mb-3 line-clamp-2 font-body">{short_description}</p>
                 <div className="flex justify-between items-center">
-                    <span className="font-bold">{price}</span>
+                    <span className="font-bold">{price} ₽ </span>
                     <Link to={`/product/${id}`}>
                     <button className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3 rounded-full font-body">
                         Подробнее

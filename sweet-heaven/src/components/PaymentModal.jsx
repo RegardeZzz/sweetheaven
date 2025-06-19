@@ -5,6 +5,13 @@ const PaymentModal = ({ isOpen, onClose, onSubmit }) => {
   const [expiry, setExpiry] = useState("");
   const [pin, setPin] = useState("");
 
+  const handleCardNumberChange = (e) => {
+    const value = e.target.value.replace(/\D/g, "").slice(0, 16); // только цифры, не больше 16
+    const formattedValue = value.replace(/(.{4})/g, "$1 ").trim(); // группировка по 4 цифры
+    setCardNumber(formattedValue);
+  };
+
+
   const handleExpiryChange = (e) => {
     let value = e.target.value.replace(/\D/g, "").slice(0, 4);
 
@@ -20,10 +27,12 @@ const PaymentModal = ({ isOpen, onClose, onSubmit }) => {
   const handleSubmit = () => {
     const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
 
-    if (cardNumber.length !== 12 || pin.length !== 3 || !expiryRegex.test(expiry)) {
-      alert("Введите корректные данные карты (12 цифр, 3-значный пин, срок: MM/YY)");
+    const rawCardNumber = cardNumber.replace(/\s/g, ""); // удаляем пробелы
+
+    if (rawCardNumber.length !== 16 || pin.length !== 3 || !expiryRegex.test(expiry)) {
+      alert("Введите корректные данные карты (16 цифр, 3-значный пин, срок: MM/YY)");
       return;
-    }
+    }   
 
     onSubmit();
     onClose();
@@ -38,10 +47,10 @@ const PaymentModal = ({ isOpen, onClose, onSubmit }) => {
         <div className="space-y-3">
           <input
             type="text"
-            maxLength="12"
+            maxLength="19"
             value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value.replace(/\D/g, ""))}
-            placeholder="Номер карты (12 цифр)"
+            onChange={handleCardNumberChange}
+            placeholder="Номер карты (16 цифр)"
             className="w-full border rounded px-3 py-2"
           />
           <input
